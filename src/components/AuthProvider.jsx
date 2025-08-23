@@ -7,14 +7,7 @@ export const AuthContext = createContext(null);
 const AuthProvider = ({ children }) => {
     // Function to register a new user using Firebase Authentication
     const registerUser = (email, password) => {
-        createUserWithEmailAndPassword(auth, email, password)
-            .then(result => {
-                const loggedInUser = result.user;
-                console.log("🚀 ~ registerUser ~ loggedInUser:", loggedInUser)
-            })
-            .catch(error => {
-                console.error("Error registering user: ", error.message);
-            })
+        return createUserWithEmailAndPassword(auth, email, password)
     }
 
     // Function to login a user

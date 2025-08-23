@@ -4,6 +4,7 @@ import { AuthContext } from "../components/AuthProvider";
 const Register = () => {
     const {registerUser} = useContext(AuthContext);
     const [registerError, setRegisterError] = useState('');
+    const [registerSuccess, setRegisterSuccess] = useState('');
     // handle registration form submission
     const handleRegister = e => {
         e.preventDefault();
@@ -32,9 +33,20 @@ const Register = () => {
         }
 
         setRegisterError(''); // clear previous error
+        setRegisterSuccess(''); // clear previous success message
 
         // register user from firebase
-        registerUser(email, password);
+        registerUser(email, password)
+            .then(result => {
+                const registeredUser = result.user;
+                console.log("🚀 ~ handleRegister ~ registeredUser:", registeredUser);
+                setRegisterSuccess("User registered successfully!");
+                form.reset(); // reset the form fields
+            })
+            .catch(error => {
+                console.error("Error registering user:", error.message);
+                setRegisterError(error.message);
+            })
     }
     return (
         <div className="w-[500px] mx-auto p-4 mt-6">
@@ -58,6 +70,9 @@ const Register = () => {
                 </div>
                 {
                     registerError && <p className="text-red-600 font-bold">{registerError}</p>
+                }
+                {
+                    registerSuccess && <p className="text-green-600 font-bold">{registerSuccess}</p>
                 }
                 <button className="btn btn-primary w-full">Register</button>
             </form>
