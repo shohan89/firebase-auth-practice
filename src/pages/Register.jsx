@@ -1,9 +1,20 @@
 
 const Register = () => {
+    // handle registration form submission
+    const handleRegister = e => {
+        e.preventDefault();
+
+        // grave all form fields values
+        const form = e.target;
+        const name = form.name.value;
+        const email = form.email.value;
+        const password = form.password.value;
+        console.log('Form submitted!', name, email, password);
+    }
     return (
         <div className="w-[500px] mx-auto p-4 mt-6">
             <h2 className="text-2xl font-bold text-center mb-6">Registration Form</h2>
-            <form className="w-full space-y-4 border p-4 shadow-lg rounded-lg">
+            <form onSubmit={handleRegister} className="w-full space-y-4 border p-4 shadow-lg rounded-lg">
                 <div>
                     <label className="label">Name</label><br />
                     <input type="text" name="name" className="input w-full" placeholder="Name" required />
