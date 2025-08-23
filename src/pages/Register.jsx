@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../components/AuthProvider";
 
 const Register = () => {
-    const {registerUser} = useContext(AuthContext);
+    const {registerUser, setUser} = useContext(AuthContext);
     const [registerError, setRegisterError] = useState('');
     const [registerSuccess, setRegisterSuccess] = useState('');
     // handle registration form submission
@@ -40,6 +40,7 @@ const Register = () => {
             .then(result => {
                 const registeredUser = result.user;
                 console.log("🚀 ~ handleRegister ~ registeredUser:", registeredUser);
+                setUser(registeredUser);
                 setRegisterSuccess("User registered successfully!");
                 form.reset(); // reset the form fields
             })
