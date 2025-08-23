@@ -1,5 +1,8 @@
+import { useContext } from "react";
+import { AuthContext } from "../components/AuthProvider";
 
 const Register = () => {
+    const {registerUser} = useContext(AuthContext);
     // handle registration form submission
     const handleRegister = e => {
         e.preventDefault();
@@ -10,6 +13,9 @@ const Register = () => {
         const email = form.email.value;
         const password = form.password.value;
         console.log('Form submitted!', name, email, password);
+
+        // register user from firebase
+        registerUser(email, password);
     }
     return (
         <div className="w-[500px] mx-auto p-4 mt-6">
