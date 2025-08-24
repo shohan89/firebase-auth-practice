@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { createContext, useEffect, useState } from 'react';
 import auth from '../Firebase/firebase.init';
 
@@ -29,6 +29,7 @@ const AuthProvider = ({ children }) => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
             if(currentUser){
                 console.log('Auth state changed, current user: ', currentUser);
+                setUser(currentUser);
             }
             else{
                 console.log('No user is signed in.');
@@ -36,12 +37,18 @@ const AuthProvider = ({ children }) => {
         })
     },[])
 
+    // Logout function
+    const logoutUser = () => {
+        return signOut(auth);
+    }
+
     // Context value to be provided to children components
     const authInfo = {
         registerUser,
         loginUser,
         user,
-        setUser
+        setUser,
+        logoutUser
     }
     return (
         <div>
