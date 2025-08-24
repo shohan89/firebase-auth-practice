@@ -1,5 +1,5 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-import { createContext, useState } from 'react';
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
+import { createContext, useEffect, useState } from 'react';
 import auth from '../Firebase/firebase.init';
 
 export const AuthContext = createContext(null);
@@ -23,6 +23,18 @@ const AuthProvider = ({ children }) => {
                 console.error("Error logging in user: ", error.message);
             })
     }
+
+    // create an observer for auth state change
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, currentUser => {
+            if(currentUser){
+                console.log('Auth state changed, current user: ', currentUser);
+            }
+            else{
+                console.log('No user is signed in.');
+            }
+        })
+    },[])
 
     // Context value to be provided to children components
     const authInfo = {
