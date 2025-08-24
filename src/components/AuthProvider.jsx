@@ -24,22 +24,9 @@ const AuthProvider = ({ children }) => {
             })
     }
 
-    // create an observer for auth state change
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, currentUser => {
-            if(currentUser){
-                console.log('Auth state changed, current user: ', currentUser);
-                setUser(currentUser);
-            }
-            else{
-                console.log('No user is signed in.');
-            }
-        })
-    },[])
-
     // Logout function
     const logoutUser = () => {
-        return signOut(auth);
+         return signOut(auth);
     }
 
     // Context value to be provided to children components
@@ -50,6 +37,18 @@ const AuthProvider = ({ children }) => {
         setUser,
         logoutUser
     }
+    // create an observer for auth state change
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            if(currentUser){
+                console.log('Auth state changed, current user: ', currentUser);
+                setUser(currentUser);
+            }
+            else{
+                console.log('No user is signed in.');
+            }
+        })
+    },[])
     return (
         <div>
             <AuthContext.Provider value={authInfo}>{ children }</AuthContext.Provider>

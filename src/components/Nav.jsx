@@ -4,6 +4,7 @@ import { AuthContext } from "./AuthProvider";
 
 const Nav = () => {
     const {user, logoutUser} = useContext(AuthContext);
+    console.log("🚀 ~ Nav ~ logoutUser:", logoutUser)
     console.log("🚀 ~ Nav ~ user:", user)
     const navLinks = <>
         <li><NavLink to='/'>Home</NavLink></li>
@@ -33,7 +34,7 @@ const Nav = () => {
             </div>
             <div className="navbar-end">
                 {
-                    user ? <div><span className="mr-4">Welcome, {user.email}</span><button className="btn btn-secondary" onClick={logoutUser}>Logout</button></div> : <NavLink to='/login'>Login</NavLink>
+                    user ? <div><span className="mr-4">Welcome, {user.email}</span><button onClick={()=>logoutUser} className="btn btn-secondary">Logout</button></div> : ''
                 }
             </div>
         </div>
