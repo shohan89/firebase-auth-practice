@@ -41,11 +41,10 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             if(currentUser){
-                console.log('Auth state changed, current user: ', currentUser);
-                setUser(currentUser);
+                setUser(currentUser); // set user state when user logged in
             }
             else{
-                console.log('No user is signed in.');
+                setUser(null); // clear user state after logout
             }
         })
         return () => unsubscribe(); // cleanup subscription on component unmount

@@ -4,8 +4,6 @@ import { AuthContext } from "./AuthProvider";
 
 const Nav = () => {
     const {user, logoutUser} = useContext(AuthContext);
-    console.log("🚀 ~ Nav ~ logoutUser:", logoutUser)
-    console.log("🚀 ~ Nav ~ user:", user)
     const navLinks = <>
         <li><NavLink to='/'>Home</NavLink></li>
         <li><NavLink to='/login'>Login</NavLink></li>
