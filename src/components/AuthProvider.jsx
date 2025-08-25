@@ -48,6 +48,7 @@ const AuthProvider = ({ children }) => {
                 console.log('No user is signed in.');
             }
         })
+        return () => unsubscribe(); // cleanup subscription on component unmount
     },[])
     return (
         <div>
