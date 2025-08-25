@@ -34,7 +34,7 @@ const Nav = () => {
             </div>
             <div className="navbar-end">
                 {
-                    user ? <div><span className="mr-4">Welcome, {user.email}</span><button onClick={()=>logoutUser} className="btn btn-secondary">Logout</button></div> : ''
+                    user ? <div><span className="mr-4">Welcome, {user.email}</span><button onClick={logoutUser} className="btn btn-secondary">Logout</button></div> : ''
                 }
             </div>
         </div>
