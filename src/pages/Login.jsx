@@ -1,8 +1,12 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../components/AuthProvider";
 
 const Login = () => {
-    const {loginUser} = useContext(AuthContext);
+    const {loginUser, user} = useContext(AuthContext);
+    const location = useLocation();
+    const navigate = useNavigate();
+    console.log("🚀 ~ Login ~ location:", location)
     // Handle login form submission
     const handleLogin = e => {
         e.preventDefault();
@@ -17,6 +21,11 @@ const Login = () => {
         // Login user from firebase
         loginUser(email, password);
     }
+    useEffect(() => {
+        if(user){
+            navigate(location.state)
+        }
+    },[user])
     return (
         <div className="w-[500px] mx-auto p-4 mt-6">
             <h2 className="text-2xl font-bold text-center mb-6">Login Form</h2>
